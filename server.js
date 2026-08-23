@@ -1,0 +1,400 @@
+const express = require("express");
+const path = require("path");
+
+const app = express();
+
+const PORT = Number(process.env.PORT || 8080);
+const HOST = "0.0.0.0";
+
+const VERSION = "1.0.0";
+const FILE_NAME = "dsi_shop.nds";
+
+app.get("/", (req, res) => {
+  res.send(`
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DSi HShop</title>
+
+  <style>
+    :root {
+      --bg: #0d0f12;
+      --panel: #15181d;
+      --panel-hover: #191d23;
+      --border: #292e36;
+      --text: #f0f2f4;
+      --muted: #8d949e;
+      --accent: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Helvetica,
+        Arial,
+        sans-serif;
+    }
+
+    .wrap {
+      width: min(900px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    header {
+      height: 68px;
+      border-bottom: 1px solid #1d2127;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    .brand img {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+      border-radius: 7px;
+    }
+
+    .nav-version {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    main {
+      padding: 56px 0 70px;
+    }
+
+    .intro {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 34px;
+    }
+
+    .intro img {
+      width: 96px;
+      height: 96px;
+      object-fit: contain;
+      border-radius: 18px;
+      flex-shrink: 0;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      letter-spacing: -1px;
+    }
+
+    .intro p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .download-card {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      border-radius: 14px;
+      padding: 20px;
+    }
+
+    .download-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .file {
+      min-width: 0;
+    }
+
+    .file-name {
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    .file-details {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .download {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 18px;
+      border-radius: 9px;
+      background: var(--accent);
+      color: #0d0f12;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      white-space: nowrap;
+      transition:
+        background 0.15s ease,
+        transform 0.15s ease;
+    }
+
+    .download:hover {
+      background: #dedede;
+      transform: translateY(-1px);
+    }
+
+    .download:active {
+      transform: translateY(0);
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 20px 0;
+    }
+
+    .details {
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+
+    .detail-label {
+      color: #666d77;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+    }
+
+    .detail-value {
+      margin-top: 5px;
+      color: var(--text);
+      font-size: 13px;
+    }
+
+    .section {
+      margin-top: 24px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      border-radius: 14px;
+      padding: 22px;
+    }
+
+    .section h2 {
+      margin: 0;
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    .section p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    code {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 8px 10px;
+      border-radius: 7px;
+      background: #0b0d10;
+      border: 1px solid var(--border);
+      color: #d8dce2;
+      font-family: monospace;
+      font-size: 12px;
+    }
+
+    footer {
+      padding: 24px 0 36px;
+      color: #5f6670;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    @media (max-width: 620px) {
+      main {
+        padding-top: 40px;
+      }
+
+      .intro {
+        align-items: flex-start;
+      }
+
+      .intro img {
+        width: 76px;
+        height: 76px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      .download-top {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .download {
+        width: 100%;
+      }
+
+      .details {
+        gap: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="nav">
+      <a class="brand" href="/">
+        <img src="/Hshop.png" alt="DSi HShop">
+        <span>DSi HShop</span>
+      </a>
+
+      <div class="nav-version">
+        v${VERSION}
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <section class="intro">
+      <img src="/Hshop.png" alt="DSi HShop">
+
+      <div>
+        <h1>DSi HShop</h1>
+        <p>
+          Homebrew software for Nintendo DSi.
+        </p>
+      </div>
+    </section>
+
+    <section class="download-card">
+
+      <div class="download-top">
+
+        <div class="file">
+          <div class="file-name">${FILE_NAME}</div>
+          <div class="file-details">
+            Nintendo DSi · Version ${VERSION}
+          </div>
+        </div>
+
+        <a
+          class="download"
+          href="/dsi_shop.nds"
+          download="${FILE_NAME}"
+        >
+          Download
+        </a>
+
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="details">
+
+        <div>
+          <div class="detail-label">Version</div>
+          <div class="detail-value">${VERSION}</div>
+        </div>
+
+        <div>
+          <div class="detail-label">Platform</div>
+          <div class="detail-value">Nintendo DSi</div>
+        </div>
+
+        <div>
+          <div class="detail-label">File</div>
+          <div class="detail-value">${FILE_NAME}</div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <section class="section">
+      <h2>Installation</h2>
+
+      <p>
+        Download the file and copy it to your SD card.
+        Launch it through your installed homebrew environment.
+      </p>
+
+      <code>/apps/dsi_shop/dsi_shop.nds</code>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  DSi HShop · Version ${VERSION}
+</footer>
+
+</body>
+</html>
+  `);
+});
+
+app.get("/Hshop.png", (req, res) => {
+  res.sendFile(path.join(__dirname, "Hshop.png"));
+});
+
+app.get("/dsi_shop.nds", (req, res) => {
+  res.download(
+    path.join(__dirname, "dsi_shop.nds"),
+    FILE_NAME
+  );
+});
+
+const server = app.listen(PORT, HOST, () => {
+  console.log(`DSi HShop running at http://localhost:${PORT}`);
+});
+
+server.on("error", err => {
+  console.error("server error:", err);
+});
+
+process.on("uncaughtException", err => {
+  console.error("uncaught exception:", err);
+});
+
+process.on("unhandledRejection", err => {
+  console.error("unhandled rejection:", err);
+});
