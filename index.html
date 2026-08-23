@@ -1,19 +1,22 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0d0f12">
+
   <title>DSi HShop</title>
 
   <style>
     :root {
       --bg: #0d0f12;
       --panel: #15181d;
-      --panel-hover: #191d23;
       --border: #292e36;
       --text: #f0f2f4;
       --muted: #8d949e;
-      --accent: #ffffff;
+      --muted-2: #666d77;
+      --button: #ffffff;
+      --button-text: #0d0f12;
     }
 
     * {
@@ -22,6 +25,7 @@
 
     body {
       margin: 0;
+      min-height: 100vh;
       background: var(--bg);
       color: var(--text);
       font-family:
@@ -46,10 +50,10 @@
     }
 
     .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
       width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .brand {
@@ -69,7 +73,7 @@
       border-radius: 7px;
     }
 
-    .nav-version {
+    .version {
       color: var(--muted);
       font-size: 13px;
     }
@@ -90,7 +94,6 @@
       height: 96px;
       object-fit: contain;
       border-radius: 18px;
-      flex-shrink: 0;
     }
 
     h1 {
@@ -106,22 +109,18 @@
       line-height: 1.5;
     }
 
-    .download-card {
+    .card {
       border: 1px solid var(--border);
       background: var(--panel);
       border-radius: 14px;
       padding: 20px;
     }
 
-    .download-top {
+    .download-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 18px;
-    }
-
-    .file {
-      min-width: 0;
     }
 
     .file-name {
@@ -142,8 +141,8 @@
       min-height: 44px;
       padding: 0 18px;
       border-radius: 9px;
-      background: var(--accent);
-      color: #0d0f12;
+      background: var(--button);
+      color: var(--button-text);
       text-decoration: none;
       font-size: 14px;
       font-weight: 700;
@@ -174,14 +173,14 @@
       flex-wrap: wrap;
     }
 
-    .detail-label {
-      color: #666d77;
+    .label {
+      color: var(--muted-2);
       font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 0.7px;
     }
 
-    .detail-value {
+    .value {
       margin-top: 5px;
       color: var(--text);
       font-size: 13px;
@@ -198,7 +197,6 @@
     .section h2 {
       margin: 0;
       font-size: 17px;
-      font-weight: 700;
     }
 
     .section p {
@@ -228,10 +226,6 @@
     }
 
     @media (max-width: 620px) {
-      main {
-        padding-top: 40px;
-      }
-
       .intro {
         align-items: flex-start;
       }
@@ -245,17 +239,13 @@
         font-size: 28px;
       }
 
-      .download-top {
-        align-items: stretch;
+      .download-row {
         flex-direction: column;
+        align-items: stretch;
       }
 
       .download {
         width: 100%;
-      }
-
-      .details {
-        gap: 18px;
       }
     }
   </style>
@@ -271,8 +261,8 @@
         <span>DSi HShop</span>
       </a>
 
-      <div class="nav-version">
-        v${VERSION}
+      <div class="version">
+        Version 1.0.0
       </div>
     </div>
   </div>
@@ -286,27 +276,25 @@
 
       <div>
         <h1>DSi HShop</h1>
-        <p>
-          Homebrew software for Nintendo DSi.
-        </p>
+        <p>Homebrew software for Nintendo DSi.</p>
       </div>
     </section>
 
-    <section class="download-card">
+    <section class="card">
 
-      <div class="download-top">
+      <div class="download-row">
 
-        <div class="file">
-          <div class="file-name">${FILE_NAME}</div>
+        <div>
+          <div class="file-name">dsi_shop.nds</div>
           <div class="file-details">
-            Nintendo DSi · Version ${VERSION}
+            Nintendo DSi · Version 1.0.0
           </div>
         </div>
 
         <a
           class="download"
           href="/dsi_shop.nds"
-          download="${FILE_NAME}"
+          download="dsi_shop.nds"
         >
           Download
         </a>
@@ -318,18 +306,18 @@
       <div class="details">
 
         <div>
-          <div class="detail-label">Version</div>
-          <div class="detail-value">${VERSION}</div>
+          <div class="label">Version</div>
+          <div class="value">1.0.0</div>
         </div>
 
         <div>
-          <div class="detail-label">Platform</div>
-          <div class="detail-value">Nintendo DSi</div>
+          <div class="label">Platform</div>
+          <div class="value">Nintendo DSi</div>
         </div>
 
         <div>
-          <div class="detail-label">File</div>
-          <div class="detail-value">${FILE_NAME}</div>
+          <div class="label">File</div>
+          <div class="value">dsi_shop.nds</div>
         </div>
 
       </div>
@@ -340,8 +328,8 @@
       <h2>Installation</h2>
 
       <p>
-        Download the file and copy it to your SD card.
-        Launch it through your installed homebrew environment.
+        Download the application and copy it to your SD card.
+        Launch it using your installed homebrew environment.
       </p>
 
       <code>/apps/dsi_shop/dsi_shop.nds</code>
@@ -351,7 +339,7 @@
 </main>
 
 <footer>
-  DSi HShop · Version ${VERSION}
+  DSi HShop · Version 1.0.0
 </footer>
 
 </body>
