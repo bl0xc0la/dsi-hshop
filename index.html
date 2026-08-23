@@ -1,17 +1,4 @@
-const express = require("express");
-const path = require("path");
-
-const app = express();
-
-const PORT = Number(process.env.PORT || 8080);
-const HOST = "0.0.0.0";
-
-const VERSION = "1.0.0";
-const FILE_NAME = "dsi_shop.nds";
-
-app.get("/", (req, res) => {
-  res.send(`
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -369,32 +356,3 @@ app.get("/", (req, res) => {
 
 </body>
 </html>
-  `);
-});
-
-app.get("/Hshop.png", (req, res) => {
-  res.sendFile(path.join(__dirname, "Hshop.png"));
-});
-
-app.get("/dsi_shop.nds", (req, res) => {
-  res.download(
-    path.join(__dirname, "dsi_shop.nds"),
-    FILE_NAME
-  );
-});
-
-const server = app.listen(PORT, HOST, () => {
-  console.log(`DSi HShop running at http://localhost:${PORT}`);
-});
-
-server.on("error", err => {
-  console.error("server error:", err);
-});
-
-process.on("uncaughtException", err => {
-  console.error("uncaught exception:", err);
-});
-
-process.on("unhandledRejection", err => {
-  console.error("unhandled rejection:", err);
-});
